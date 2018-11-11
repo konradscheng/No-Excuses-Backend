@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Logout
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,32 +43,14 @@ public class Login extends HttpServlet {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost/NoExcuses?user=root&password=sqlpassword&useSSL=false&allowPublicKeyRetrieval=true");
+	    	
+	        ps = conn.prepareStatement("UPDATE Users SET loggedin='no' WHERE username=? AND userpassword=?");
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.executeUpdate();
 			
-	        ps = conn.prepareStatement("SELECT * FROM Users WHERE username=? AND userpassword=? AND loggedin=?");
-	        ps.setString(1, username);
-	        ps.setString(2, password);
-	        ps.setString(3, "no");
-	        
-	        rs = ps.executeQuery();
-	        
-	        Boolean found = false;
-	        
-	        while (rs.next()) {
-		        ps = conn.prepareStatement("UPDATE Users SET loggedin='yes' WHERE username=? AND userpassword=?");
-				ps.setString(1, username);
-				ps.setString(2, password);
-				ps.executeUpdate();
-	        	found = true;
-	        }
+			//return response that user is logged out
 
-	        if (found) {
-	        	System.out.println("User is authenticated!");
-	        	//return that user is authenticated
-	        } else {
-		        System.out.println("Wrong username/password, user already exists, or user is already logged in!");
-	        	//return that log in credentials are wrong or user is already logged in
-	        }
-	        
 	    } catch (SQLException sqle) {
 	    	System.out.println (sqle.getMessage());
 	    } catch (ClassNotFoundException cnfe) {

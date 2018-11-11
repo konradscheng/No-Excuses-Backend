@@ -7,8 +7,14 @@ CREATE TABLE Users (
     userpassword VARCHAR(50) NOT NULL,
     phonenumber VARCHAR(50) NOT NULL,
     email VARCHAR(50),
-    ticket VARCHAR(50),
-    ticketvalidated VARCHAR(50),
-    lattitude FLOAT(24),
-    longitude FLOAT( 24)
+    lattitude VARCHAR(50),
+    longitude VARCHAR( 50),
+    loggedin VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Tickets (
+	ticketNumber VARCHAR(50) PRIMARY KEY NOT NULL,
+    validated VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    FOREIGN KEY (username) REFERENCES Users(username)
 );

@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class CreateAccount
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/CreateAccount")
+public class CreateAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public CreateAccount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,36 +38,30 @@ public class Login extends HttpServlet {
 
 	    String username = "Tom";
 	    String password = "Cat";
+	    String phonenumber = "123-456-7890";
+	    String email = "email@gmail.com";
+	    String lattitude = null;
+	    String longitude = null;
+	    String loggedin = "no";
 	    
 	    try {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost/NoExcuses?user=root&password=sqlpassword&useSSL=false&allowPublicKeyRetrieval=true");
 			
-	        ps = conn.prepareStatement("SELECT * FROM Users WHERE username=? AND userpassword=? AND loggedin=?");
+	        ps = conn.prepareStatement("INSERT INTO Users (username, userpassword, phonenumber, email, lattitude, longitude, loggedin) VALUES(?, ?, ?, ?, ?, ?, ?)");
 	        ps.setString(1, username);
 	        ps.setString(2, password);
-	        ps.setString(3, "no");
+	        ps.setString(3, phonenumber);
+	        ps.setString(4, email);
+	        ps.setString(5, lattitude);
+	        ps.setString(6, longitude);
+	        ps.setString(7, loggedin);
 	        
-	        rs = ps.executeQuery();
+	        ps.execute();
 	        
-	        Boolean found = false;
-	        
-	        while (rs.next()) {
-		        ps = conn.prepareStatement("UPDATE Users SET loggedin='yes' WHERE username=? AND userpassword=?");
-				ps.setString(1, username);
-				ps.setString(2, password);
-				ps.executeUpdate();
-	        	found = true;
-	        }
-
-	        if (found) {
-	        	System.out.println("User is authenticated!");
-	        	//return that user is authenticated
-	        } else {
-		        System.out.println("Wrong username/password, user already exists, or user is already logged in!");
-	        	//return that log in credentials are wrong or user is already logged in
-	        }
+	        System.out.println("New user was successfully created!");
+	        //return that user was successfully created
 	        
 	    } catch (SQLException sqle) {
 	    	System.out.println (sqle.getMessage());
@@ -88,3 +84,4 @@ public class Login extends HttpServlet {
 	    }  
 	}
 }
+
