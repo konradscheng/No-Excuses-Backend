@@ -68,11 +68,11 @@ public class FriendLocations extends HttpServlet {
 			// return this information
 			/*
 			 * {
-			 * [name:{
+			 * [{name:{
 			 * 		latitude: val
 			 * 		longitude: val
 			 * },
-			 * ...]
+			 * ...}]
 			 * }
 			 */
 

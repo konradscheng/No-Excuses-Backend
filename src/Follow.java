@@ -51,7 +51,8 @@ public class Follow extends HttpServlet {
 	        ps.execute();
 	        
 	        System.out.println("Friend was successfully followed!");
-	        //return that friend was successfully followed
+	        //return that friend was successfully followed (200)
+	        //return fail (400)
 	        
 	    } catch (SQLException sqle) {
 	    	System.out.println (sqle.getMessage());
