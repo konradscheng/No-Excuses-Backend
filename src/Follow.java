@@ -36,35 +36,22 @@ public class Follow extends HttpServlet {
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 
-	    String username = "Tom";
+	    String username = request.getParameter("username");
+	    String friendusername = request.getParameter("friendusername");
 	    
 	    try {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost/NoExcuses?user=root&password=sqlpassword&useSSL=false&allowPublicKeyRetrieval=true");
 			
-	        ps = conn.prepareStatement("SELECT * FROM Users WHERE username=?");
+	        ps = conn.prepareStatement("INSERT INTO Friends (username, friendusername) VALUES(?, ?)");
 	        ps.setString(1, username);
+	        ps.setString(2, friendusername);
 	        
-	        rs = ps.executeQuery();
+	        ps.execute();
 	        
-	        Boolean found = false;
-	        
-	        while (rs.next()) {
-		        ps = conn.prepareStatement("UPDATE Users SET loggedin='yes' WHERE username=? AND userpassword=?");
-				ps.setString(1, username);
-				ps.setString(2, password);
-				ps.executeUpdate();
-	        	found = true;
-	        }
-
-	        if (found) {
-	        	System.out.println("User is authenticated!");
-	        	//return that user is authenticated
-	        } else {
-		        System.out.println("Wrong username/password, user already exists, or user is already logged in!");
-	        	//return that log in credentials are wrong or user is already logged in
-	        }
+	        System.out.println("Friend was successfully followed!");
+	        //return that friend was successfully followed
 	        
 	    } catch (SQLException sqle) {
 	    	System.out.println (sqle.getMessage());

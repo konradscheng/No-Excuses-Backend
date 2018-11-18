@@ -36,8 +36,8 @@ public class Logout extends HttpServlet {
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 
-	    String username = "Tom";
-	    String password = "Cat";
+	    String username = request.getParameter("username");
+	    String password = request.getParameter("password");
 	    
 	    try {
 	    	Class.forName("com.mysql.jdbc.Driver");

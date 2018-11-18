@@ -34,10 +34,10 @@ public class CreateAccount extends HttpServlet {
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 
-	    String username = "Tom";
-	    String password = "Cat";
-	    String phonenumber = "123-456-7890";
-	    String email = "email@gmail.com";
+	    String username = request.getParameter("username");
+	    String password = request.getParameter("password");
+	    String phonenumber = request.getParameter("phonenumber");
+	    String email = request.getParameter("email");
 	    String lattitude = null;
 	    String longitude = null;
 	    String loggedin = "no";

@@ -43,7 +43,7 @@ public class Location extends HttpServlet {
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 
-		String username = "konrad";
+		String username = request.getParameter("username");
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
 		System.out.println(latitude + " " + longitude);
