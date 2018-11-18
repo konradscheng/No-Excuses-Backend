@@ -77,10 +77,10 @@ public class TicketAuthentication extends HttpServlet {
 
 			}
 			if (validated) {
-				// send
+				// send back ticket is validated (200)
 				System.out.println("validated");
 			} else {
-				// send
+				// send back ticket is invalid (400)
 				System.out.println("not validated");
 			}
 		} catch (SQLException sqle) {

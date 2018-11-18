@@ -37,19 +37,18 @@ public class Logout extends HttpServlet {
 	    ResultSet rs = null;
 
 	    String username = request.getParameter("username");
-	    String password = request.getParameter("password");
 	    
 	    try {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost/NoExcuses?user=root&password=sqlpassword&useSSL=false&allowPublicKeyRetrieval=true");
 	    	
-	        ps = conn.prepareStatement("UPDATE Users SET loggedin='no' WHERE username=? AND userpassword=?");
+	        ps = conn.prepareStatement("UPDATE Users SET loggedin='no' WHERE username=?");
 			ps.setString(1, username);
-			ps.setString(2, password);
 			ps.executeUpdate();
 			
-			//return response that user is logged out
+			//return response that user is logged out (200)
+			//reutrn response unsuccessful (400)
 
 	    } catch (SQLException sqle) {
 	    	System.out.println (sqle.getMessage());

@@ -44,11 +44,8 @@ public class Location extends HttpServlet {
 		PreparedStatement ps = null;
 
 		String username = request.getParameter("username");
-		String latitude = request.getParameter("latitude");
-		String longitude = request.getParameter("longitude");
-		System.out.println(latitude + " " + longitude);
-//		String ticketNumber = "123";
 
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			// protocol: connecting from jdbc to mysql//hostname:port/database_name
@@ -103,7 +100,7 @@ public class Location extends HttpServlet {
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 
-		String username = "konrad";
+		String username = request.getParameter("username");
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
 		System.out.println(latitude + " " + longitude);
@@ -129,6 +126,9 @@ public class Location extends HttpServlet {
 				ps.setString(2, longitude);
 				ps.setString(3, username);
 				ps.executeUpdate();
+				
+				
+				
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());

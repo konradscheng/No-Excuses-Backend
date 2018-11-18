@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class CreateAccount
@@ -36,8 +40,8 @@ public class CreateAccount extends HttpServlet {
 
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");
-	    String phonenumber = request.getParameter("phonenumber");
 	    String email = request.getParameter("email");
+	    String ticketNumber = request.getParameter("ticketNumber");
 	    String lattitude = null;
 	    String longitude = null;
 	    String loggedin = "no";
@@ -47,11 +51,11 @@ public class CreateAccount extends HttpServlet {
 	
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost/NoExcuses?user=root&password=sqlpassword&useSSL=false&allowPublicKeyRetrieval=true");
 			
-	        ps = conn.prepareStatement("INSERT INTO Users (username, userpassword, phonenumber, email, lattitude, longitude, loggedin) VALUES(?, ?, ?, ?, ?, ?, ?)");
+	        ps = conn.prepareStatement("INSERT INTO Users (username, userpassword, email, ticketNumber, lattitude, longitude, loggedin) VALUES(?, ?, ?, ?, ?, ?, ?)");
 	        ps.setString(1, username);
 	        ps.setString(2, password);
-	        ps.setString(3, phonenumber);
-	        ps.setString(4, email);
+	        ps.setString(3, email);
+	        ps.setString(4, ticketNumber);
 	        ps.setString(5, lattitude);
 	        ps.setString(6, longitude);
 	        ps.setString(7, loggedin);
@@ -59,7 +63,16 @@ public class CreateAccount extends HttpServlet {
 	        ps.execute();
 	        
 	        System.out.println("New user was successfully created!");
-	        //return that user was successfully created
+	        //return that user was successfully created (200)
+	        
+	        //not successful (400)
+	        
+	        //return JSON of username, email, ticketNumber
+//			FileWriter fw = new FileWriter(inputFilename);
+//			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+//			gson.toJson(list, fw);
+//			
+//			fw.close();
 	        
 	    } catch (SQLException sqle) {
 	    	System.out.println (sqle.getMessage());

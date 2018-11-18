@@ -31,7 +31,7 @@ public class SearchUsers extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 //		String searchQuery = request.getParameter("search");
-		String searchQuery = "i e";
+		String searchQuery = request.getParameter("search");
 		String[] terms = searchQuery.split("\\s+");
 
 		System.out.println("search query:" + searchQuery);
@@ -69,6 +69,8 @@ public class SearchUsers extends HttpServlet {
 			}
 			
 			//return list of found users
+			// set status code to 200 for success, 400 for fail
+			// [names, names2, name2]
 			
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
