@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class IsFollowing
+ * Servlet implementation class IsTicketAuthenticated
  */
-@WebServlet("/IsFollowing")
-public class IsFollowing extends HttpServlet {
+@WebServlet("/IsTicketAuthenticated")
+public class IsTicketAuthenticated extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public IsFollowing() {
+	public IsTicketAuthenticated() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,7 +38,6 @@ public class IsFollowing extends HttpServlet {
 		ResultSet rs = null;
 
 		String username = request.getParameter("username");
-		String friendusername = request.getParameter("friendusername");
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -45,10 +45,9 @@ public class IsFollowing extends HttpServlet {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/NoExcuses?user=root&password=sqlpassword&useSSL=false&allowPublicKeyRetrieval=true");
 
-			ps = conn.prepareStatement("SELECT * FROM Following WHERE username=? friendusername=?");
+			ps = conn.prepareStatement("SELECT * FROM Tickets WHERE username=? AND validated=?");
 			ps.setString(1, username);
-			ps.setString(2, friendusername);
-
+			ps.setString(2,  "yes");
 			rs = ps.executeQuery();
 
 			Boolean found = false;
@@ -58,9 +57,9 @@ public class IsFollowing extends HttpServlet {
 			}
 
 			if (found) {
-				// return status code indicating this user is following the other user
+				// return status code indicating ticket is validated
 			} else {
-				// return status code indicating this user is not following the other user
+				// return status code indicating ticket is not validated
 			}
 
 		} catch (SQLException sqle) {
