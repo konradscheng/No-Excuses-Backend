@@ -60,6 +60,8 @@ public class Location extends HttpServlet {
 				// send location back
 				System.out.println(rs.getString("latitude"));
 				System.out.println(rs.getString("longitude"));
+				
+				// json array key: lat
 			}
 		} catch (SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
