@@ -65,6 +65,8 @@ public class FriendLocations extends HttpServlet {
 				}
 			}
 
+	    	response.setStatus(200);
+			
 			// return this information
 			/*
 			 * {
@@ -77,6 +79,7 @@ public class FriendLocations extends HttpServlet {
 			 */
 
 		} catch (SQLException sqle) {
+	    	response.setStatus(400);
 			System.out.println(sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println(cnfe.getMessage());

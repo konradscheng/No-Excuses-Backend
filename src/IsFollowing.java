@@ -58,12 +58,15 @@ public class IsFollowing extends HttpServlet {
 			}
 
 			if (found) {
+		    	response.setStatus(200);
 				// return status code indicating this user is following the other user
 			} else {
+		    	response.setStatus(400);
 				// return status code indicating this user is not following the other user
 			}
 
 		} catch (SQLException sqle) {
+	    	response.setStatus(400);
 			System.out.println(sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println(cnfe.getMessage());

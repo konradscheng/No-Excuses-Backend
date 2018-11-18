@@ -64,7 +64,7 @@ public class CreateAccount extends HttpServlet {
 	        
 	        System.out.println("New user was successfully created!");
 	        //return that user was successfully created (200)
-	        
+	    	response.setStatus(200);
 	        //not successful (400)
 	        
 	        //return JSON of username, email, ticketNumber
@@ -75,6 +75,7 @@ public class CreateAccount extends HttpServlet {
 //			fw.close();
 	        
 	    } catch (SQLException sqle) {
+	    	response.setStatus(400);
 	    	System.out.println (sqle.getMessage());
 	    } catch (ClassNotFoundException cnfe) {
 	    	System.out.println (cnfe.getMessage());

@@ -61,15 +61,17 @@ public class Login extends HttpServlet {
 
 	        if (found) {
 	        	System.out.println("User is authenticated!");
-	        	//return that user is authenticated (200)
+		    	response.setStatus(200);
 	        	
 	        	//return JSON of username, email, ticketNumber
 	        } else {
 		        System.out.println("Wrong username/password, user already exists, or user is already logged in!");
+		    	response.setStatus(400);
 	        	//return that log in credentials are wrong or user is already logged in (400)
 	        }
 	        
 	    } catch (SQLException sqle) {
+	    	response.setStatus(400);
 	    	System.out.println (sqle.getMessage());
 	    } catch (ClassNotFoundException cnfe) {
 	    	System.out.println (cnfe.getMessage());

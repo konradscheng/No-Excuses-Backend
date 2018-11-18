@@ -68,11 +68,13 @@ public class SearchUsers extends HttpServlet {
 				System.out.println(rs.getString("username"));
 			}
 			
+	    	response.setStatus(200);
 			//return list of found users
 			// set status code to 200 for success, 400 for fail
 			// [names, names2, name2]
 			
 		} catch (SQLException sqle) {
+	    	response.setStatus(400);
 			System.out.println("sqle: " + sqle.getMessage());
 
 		} catch (ClassNotFoundException cnfe) {

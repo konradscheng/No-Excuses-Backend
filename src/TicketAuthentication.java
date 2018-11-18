@@ -78,12 +78,15 @@ public class TicketAuthentication extends HttpServlet {
 			}
 			if (validated) {
 				// send back ticket is validated (200)
+		    	response.setStatus(200);
 				System.out.println("validated");
 			} else {
 				// send back ticket is invalid (400)
+		    	response.setStatus(400);
 				System.out.println("not validated");
 			}
 		} catch (SQLException sqle) {
+	    	response.setStatus(400);
 			System.out.println("sqle: " + sqle.getMessage());
 
 		} catch (ClassNotFoundException cnfe) {

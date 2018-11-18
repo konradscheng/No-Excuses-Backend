@@ -48,9 +48,11 @@ public class Logout extends HttpServlet {
 			ps.executeUpdate();
 			
 			//return response that user is logged out (200)
+	    	response.setStatus(200);
 			//reutrn response unsuccessful (400)
 
 	    } catch (SQLException sqle) {
+	    	response.setStatus(400);
 	    	System.out.println (sqle.getMessage());
 	    } catch (ClassNotFoundException cnfe) {
 	    	System.out.println (cnfe.getMessage());

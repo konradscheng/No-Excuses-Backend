@@ -56,6 +56,8 @@ public class Location extends HttpServlet {
 
 			rs = ps.executeQuery();
 
+	    	response.setStatus(200);
+			
 			while (rs.next()) {
 				// send location back
 				System.out.println(rs.getString("latitude"));
@@ -64,6 +66,7 @@ public class Location extends HttpServlet {
 				// json array key: lat
 			}
 		} catch (SQLException sqle) {
+	    	response.setStatus(400);
 			System.out.println("sqle: " + sqle.getMessage());
 
 		} catch (ClassNotFoundException cnfe) {

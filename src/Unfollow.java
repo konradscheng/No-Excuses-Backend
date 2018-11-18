@@ -51,10 +51,12 @@ public class Unfollow extends HttpServlet {
 	        ps.execute();
 	        
 	        System.out.println("Friend was successfully unfollowed!");
+	    	response.setStatus(200);
 	        //return that friend was successfully unfollowed (200)
 	        //return fail (400)
 	        
 	    } catch (SQLException sqle) {
+	    	response.setStatus(400);
 	    	System.out.println (sqle.getMessage());
 	    } catch (ClassNotFoundException cnfe) {
 	    	System.out.println (cnfe.getMessage());
