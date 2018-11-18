@@ -106,41 +106,6 @@ public class TicketAuthentication extends HttpServlet {
 				System.out.println("sqle closing streams: " + sqle.getMessage());
 			}
 		}
-
-		String firstName = request.getParameter("fname");
-		// authenticate login or send email if its an email
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		String nextPage;
-		if (firstName != null && firstName.equalsIgnoreCase("123")) {
-			nextPage = "/success.jsp";
-		} else {
-			request.setAttribute("fnameError", "not validated.");
-			nextPage = "/index.jsp";
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

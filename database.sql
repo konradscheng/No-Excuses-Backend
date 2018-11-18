@@ -18,3 +18,10 @@ CREATE TABLE Tickets (
     username VARCHAR(50) NOT NULL,
     FOREIGN KEY (username) REFERENCES Users(username)
 );
+
+CREATE TABLE Friends (
+    username VARCHAR(50) PRIMARY KEY NOT NULL,
+    friendusername VARCHAR(50) NOT NULL,
+	FOREIGN KEY (username) REFERENCES Users(username),
+	FOREIGN KEY (friendusername) REFERENCES Users(username)
+);
