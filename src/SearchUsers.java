@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+
 /**
  * Servlet implementation class SearchUsers
  */
@@ -52,6 +54,7 @@ public class SearchUsers extends HttpServlet {
 		Statement st = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
+		JSONArray users = new JSONArray();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -64,17 +67,20 @@ public class SearchUsers extends HttpServlet {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				//populate data structure of searched users
+				// populate data structure of searched users
 				System.out.println(rs.getString("username"));
+				users.put(rs.getString("username"));
+
 			}
-			
-	    	response.setStatus(200);
-			//return list of found users
+
+			response.setStatus(200);
+			response.setHeader("users", users.toString());
+			// return list of found users
 			// set status code to 200 for success, 400 for fail
 			// [names, names2, name2]
-			
+
 		} catch (SQLException sqle) {
-	    	response.setStatus(400);
+			response.setStatus(400);
 			System.out.println("sqle: " + sqle.getMessage());
 
 		} catch (ClassNotFoundException cnfe) {

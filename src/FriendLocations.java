@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Servlet implementation class FriendLocations
  */
@@ -35,6 +39,7 @@ public class FriendLocations extends HttpServlet {
 		Statement st = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		JSONArray friendLocations = new JSONArray();
 
 		String username = request.getParameter("username");
 
@@ -62,27 +67,27 @@ public class FriendLocations extends HttpServlet {
 					String longitude = friendrs.getString("longitude");
 					System.out.println(friendusername + " " + latitude + " " + longitude);
 					// add this information to a data structure
+					JSONObject user = new JSONObject();
+					user.put(username, new JSONObject().put("latitude", latitude).put("longitudue", longitude));
 				}
 			}
 
-	    	response.setStatus(200);
-			
+			response.setStatus(200);
+			response.setHeader("friendLocations", friendLocations.toString());
+
 			// return this information
 			/*
-			 * {
-			 * [{name:{
-			 * 		latitude: val
-			 * 		longitude: val
-			 * },
-			 * ...}]
-			 * }
+			 * { [{name:{ latitude: val longitude: val }, ...}] }
 			 */
 
 		} catch (SQLException sqle) {
-	    	response.setStatus(400);
+			response.setStatus(400);
 			System.out.println(sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println(cnfe.getMessage());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			try {
 				if (rs != null) {
